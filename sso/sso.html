@@ -1,0 +1,89 @@
+<html>
+    <head>
+<title>单点登录测试</title>
+<script src="jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+<table>
+    <tr>
+        <td>用户名</td>
+        <td>
+            <input type="text" id="txtName" />
+        </td>
+    </tr>
+    <tr>
+        <td>密码</td>
+        <td>
+            <input type="text" id="txtPwd" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="button" id="btnLogin" value=">>登陆>>"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+           <label id="lbMsg" style="color:blue"></label>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <input type="button" id="btnLogin2" value=">>验证>>"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+           <label id="lbMsg2" style="color:blue"></label>
+        </td>
+    </tr>
+</table>
+    </body>
+    <script type="text/javascript">
+    $("#btnLogin").click(function(){
+        $.ajax({
+    url: 'http://me.lifesense.com:8081/sso/auth',
+    type: 'GET',
+    xhrFields: {
+            withCredentials: true
+        },
+    crossDomain: true,
+    success:function(data,textStatus,jqXHR){
+        $("#lbMsg").text(data);
+        console.log(data);
+        console.log(textStatus);
+        console.log(jqXHR);
+    },
+    complete: function(jqXHR){
+        console.log(jqXHR.status);
+    },
+    error: function (xhr) {
+        console.log(xhr.status);
+    }
+});
+    });
+
+
+    $("#btnLogin2").click(function(){
+        $.ajax({
+    url: 'http://me.lifesense.com:8082/toutiao/auth',
+    type: 'GET',
+    xhrFields: {
+            withCredentials: true
+        },
+    crossDomain: true,
+    success:function(data,textStatus,jqXHR){
+        $("#lbMsg2").text(data);
+    },
+    complete: function(jqXHR){
+        console.log(jqXHR.status);
+    },
+    error: function (xhr) {
+        console.log(xhr.status);
+    }
+});
+    });
+    
+    </script>
+</html>
